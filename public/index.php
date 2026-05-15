@@ -1,7 +1,7 @@
 <?php
 
-use app\core\Core;
+use app\core\core\Core;
 
-require_once '../app/bootstrap/bootstrap.php';
+require_once '../app/core/bootstrap/bootstrap.php';
 
 new Core;

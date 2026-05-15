@@ -1,6 +1,6 @@
 <?php
 
-namespace app\mails;
+namespace app\core\mails;
 
 use PHPMailer\PHPMailer\PHPMailer;
 

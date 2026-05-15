@@ -1,6 +1,6 @@
 <?php
 
-namespace app\sms;
+namespace app\core\sms;
 
 use Exception;
 use Kavenegar\KavenegarApi;

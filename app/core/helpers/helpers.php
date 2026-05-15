@@ -1,7 +1,7 @@
 <?php
 
-use app\configs\Config;
-use app\database\Database;
+use app\core\configs\Config;
+use app\core\database\Database;
 use app\errors\Errors;
 
 function MakeSecureHash($password)
@@ -266,4 +266,28 @@ function tableExport(string $tableName): void
     } catch (PDOException $e) {
         handleExportError($e);
     }
+}
+
+function getCurrentUrl()
+{
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        ? "https://"
+        : "http://";
+    $host = $_SERVER['HTTP_HOST'];
+    $uri = $_SERVER['REQUEST_URI'];
+    return $protocol . $host . $uri;
+}
+
+function WEB()
+{
+    $host = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '';
+    $devDomains = ['localhost', '127.0.0.1', 'dev.', 'test.', 'staging.'];
+
+    foreach ($devDomains as $devDomain) {
+        if (strpos($host, $devDomain) !== false) {
+            return 'off';
+        }
+    }
+
+    return 'on';
 }

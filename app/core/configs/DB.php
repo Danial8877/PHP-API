@@ -1,6 +1,6 @@
 <?php
 
-namespace app\configs;
+namespace app\core\configs;
 
 class DB
 {
