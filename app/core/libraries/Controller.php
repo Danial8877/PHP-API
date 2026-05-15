@@ -1,8 +1,8 @@
 <?php
 
-namespace app\libraries;
+namespace app\core\libraries;
 
-use app\configs\Config;
+use app\core\configs\Config;
 use app\errors\Errors;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;

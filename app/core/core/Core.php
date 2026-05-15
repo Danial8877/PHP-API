@@ -1,8 +1,11 @@
 <?php
-namespace app\core;
-use app\configs\Config;
+
+namespace app\core\core;
+
+use app\core\configs\Config;
 use app\errors\Errors;
 use app\routes\Web;
+
 class Core extends Web
 {
     public function __construct()
@@ -11,10 +14,23 @@ class Core extends Web
         $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
         $normalizedUri = preg_replace('#/+#', '/', $requestUri);
         $normalizedUri = str_replace('../', '', $normalizedUri);
-        if ($_ENV["WEB"] === "on") {
+        function WEB()
+        {
+            $host = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '';
+            $devDomains = ['localhost', '127.0.0.1', 'dev.', 'test.', 'staging.'];
+
+            foreach ($devDomains as $devDomain) {
+                if (strpos($host, $devDomain) !== false) {
+                    return 'off';
+                }
+            }
+
+            return 'on';
+        }
+        if (WEB() === "on") {
             $parsedPath = parse_url($normalizedUri, PHP_URL_PATH);
             $path = trim($parsedPath ?: '', "/");
-        } elseif ($_ENV["WEB"] === "off") {
+        } elseif (WEB() === "off") {
             $parsedPath = parse_url($normalizedUri, PHP_URL_PATH);
             if ($parsedPath !== false) {
                 $path = trim(str_replace(Config::PROJECTNAME() . "/", "", $parsedPath), "/");
@@ -22,7 +38,8 @@ class Core extends Web
                 $path = '';
             }
         } else {
-            Errors::_500_();
+            http_response_code(500);
+            exit;
         }
         $method = $_SERVER['REQUEST_METHOD'];
         header("Content-Type: application/json; charset=utf-8");
@@ -31,10 +48,12 @@ class Core extends Web
         if ($allowedOrigins !== $all) {
             $origin = $_SERVER['HTTP_ORIGIN'] ?? null;
             if (!$origin || !isset($allowedOrigins[$origin])) {
-                Errors::_403_();
+                http_response_code(403);
+                exit;
             }
             if (!in_array($method, $allowedOrigins[$origin])) {
-                Errors::_405_();
+                http_response_code(405);
+                exit;
             }
         }
         header("Access-Control-Allow-Origin: " . (isset($origin) ? $origin : "*"));
@@ -83,10 +102,12 @@ class Core extends Web
                             $controller->{$info['method']}($id);
                         }
                     } else {
-                        Errors::_404_();
+                        http_response_code(404);
+                        exit;
                     }
                 } else {
-                    Errors::_404_();
+                    http_response_code(404);
+                    exit;
                 }
                 exit;
             }
@@ -95,7 +116,7 @@ class Core extends Web
             Errors::_404_();
         }
     }
-    
+
     private function sanitizeInput(array $data): array
     {
         $sanitized = [];

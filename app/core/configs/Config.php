@@ -1,6 +1,6 @@
 <?php
 
-namespace app\configs;
+namespace app\core\configs;
 
 class Config
 {
@@ -10,22 +10,22 @@ class Config
     }
     static public  function WEB()
     {
-        return $_ENV["WEB"];
+        return WEB();
     }
     static public  function PROJECTNAME()
     {
-        return $_ENV["PROJECTNAME"];
+        return trim(dirname($_SERVER['SCRIPT_NAME'], 2), '/');
     }
     static public  function URLROOT()
     {
-        return $_ENV["URL"];
+        return getCurrentUrl();
     }
     static public  function PUBLICROOT()
     {
-        return dirname(dirname(__DIR__)) . "/public/";
+        return dirname((__DIR__), 3) . "/public/";
     }
     static public  function APPROOT()
     {
-        return dirname(__DIR__) . "/";
+        return dirname(__DIR__, 2) . "/";
     }
 }
