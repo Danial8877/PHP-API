@@ -22,6 +22,19 @@ class ComposerStaticInit5dd1a0539458feefe56fc6844545ed2a
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'app\\controllers\\ExampleController' => __DIR__ . '/../..' . '/app/controllers/ExampleController.php',
+        'app\\core\\configs\\Config' => __DIR__ . '/../..' . '/app/core/configs/Config.php',
+        'app\\core\\configs\\DB' => __DIR__ . '/../..' . '/app/core/configs/DB.php',
+        'app\\core\\core\\Core' => __DIR__ . '/../..' . '/app/core/core/Core.php',
+        'app\\core\\database\\Database' => __DIR__ . '/../..' . '/app/core/database/Database.php',
+        'app\\core\\libraries\\Controller' => __DIR__ . '/../..' . '/app/core/libraries/Controller.php',
+        'app\\core\\mails\\Mail' => __DIR__ . '/../..' . '/app/core/mails/Mail.php',
+        'app\\core\\routes\\Route' => __DIR__ . '/../..' . '/app/core/routes/Route.php',
+        'app\\core\\sms\\Sms' => __DIR__ . '/../..' . '/app/core/sms/Sms.php',
+        'app\\errors\\Errors' => __DIR__ . '/../..' . '/app/errors/Errors.php',
+        'app\\middlewares\\ExampleMiddleware' => __DIR__ . '/../..' . '/app/middlewares/ExampleMiddleware.php',
+        'app\\models\\Example' => __DIR__ . '/../..' . '/app/models/Example.php',
+        'app\\routes\\Web' => __DIR__ . '/../..' . '/app/routes/Web.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

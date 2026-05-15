@@ -7,8 +7,8 @@ header("X-Content-Type-Options: nosniff");
 header("X-XSS-Protection: 1; mode=block");
 header("Referrer-Policy: no-referrer-when-downgrade");
 
-$app = "../app/";
+$app = "../app/core/";
 require_once $app . "auto/PHP_ENV.php";
 require_once $app . "auto/PHP_ERROR.php";
 require_once $app . "helpers/helpers.php";
-require_once $app . "../vendor/autoload.php";
+require_once $app . "../../vendor/autoload.php";

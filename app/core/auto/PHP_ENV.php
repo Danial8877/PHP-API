@@ -1,8 +1,8 @@
 <?php
 
-namespace app\auto;
+namespace app\core\auto;
 
-$path = "../.env";
+$path = "../app/configs/.env";
 
 if (!file_exists($path)) {
     http_response_code(500);
